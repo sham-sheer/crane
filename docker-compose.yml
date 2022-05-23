@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  docker-gs-ping-roach:
+    build:
+      context: .
+    container_name: crane-server
+    hostname: crane-server
+    networks:
+      - mynet
+    ports:
+      - 80:9000
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql://root@db:26257?sslmode=disable}
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+networks:
+  mynet:
+    driver: bridge
