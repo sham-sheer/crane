@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  docker-gs-ping-roach:
+  server:
     build:
       context: .
     container_name: crane-server

@@ -2,60 +2,62 @@ package models
 
 import (
 	"time"
-	"github.com/lib/pq"
 	"gorm.io/gorm"
 
 )
 // User is a model in the "users" table.
 type User struct {
 	gorm.Model
-	ID   				int     	`json:"id,omitempty"`
-	Name 				string 		`json:"name" gorm:"not null"`
-	Email 				string 		`json:"email" gorm:"not null"`
-	Contact			 	string 		`json:"contact" gorm:"not null"`
-	Type 				string 		`json:"type" gorm:"not null"`
-	Company 			string 		`json:"company" gorm:"not null"`
-	Country 			string		`json:"country" gorm:"not null"`
-	CreatedAt    		time.Time 	`json:"createdAt" gorm:"not null"`
-	UpdatedAt    		time.Time 	`json:"updatedAt" gorm:"not null"`
+	ID   				int     	`gorm:"primaryKey"`
+	Name 				string 		`json:"name" `
+	Email 				string 		`json:"email" `
+	Contact			 	string 		`json:"contact" `
+	Type 				string 		`json:"type" `
+	Company 			string 		`json:"company" `
+	Country 			string		`json:"country" `
+	CreatedAt    		time.Time 	`json:"createdAt" `
+	UpdatedAt    		time.Time 	`json:"updatedAt" `
 }
 
 type Job struct {
 	gorm.Model
-	ID    				int     			`json:"id,omitempty"`
-	Title  				string 				`json:"title"  		gorm:"not null"`
-	AppLimit  			int 				`json:"appLimit" 	gorm:"not null"`
-	PosLimit			int 				`json:"posLimit		gorm:"not null"`
-	Applicants          int 				`json:"applicants" 	gorm:"not null"`
-	Accepted		 	int 				`json:"accepted" 	gorm:"not null"`
-	Deadline			time.Time 			`json:"deadline" 	gorm:"not null"`
-	Skills   			pq.StringArray 		`json: "skills" 	gorm:"type:text[]"`
-	JobType				string 				`json:"jobType" 	gorm:"not null"`
-	Salary 				int 				`json:"salary" 		gorm:"not null"`
-	CreatedAt    		time.Time 			`json:"createdAt" 	gorm:"not null"`
-	UpdatedAt    		time.Time 			`json:"updatedAt" 	gorm:"not null"`
+	ID    				int     			`gorm:"primaryKey"`
+	Title  				string 				`json:"title"  		`
+	AppLimit  			int 				`json:"appLimit" 	`
+	PosLimit			int 				`json:"posLimit		`
+	Applicants          int 				`json:"applicants" 	`
+	Accepted		 	int 				`json:"accepted" 	`
+	Deadline			time.Time 			`json:"deadline" 	`
+	Skills   			string				`json:"skills" 		`
+	JobType				string 				`json:"jobType" 	`
+	Salary 				int 				`json:"salary" 		`
+	CreatedAt    		time.Time 			`json:"createdAt" 	`
+	UpdatedAt    		time.Time 			`json:"updatedAt" 	`
 }
 
 // Disease is a model in the "diseases" table.
 type Recruiter struct {
 	gorm.Model
-	ID    				int     			`json:"id,omitempty"`
-	Name  				string 				`json:"name"  		gorm:"not null"`
-	Contact  			int 				`json:"contact" 	gorm:"not null"`
-	Company				int 				`json:"company"		gorm:"not null"`
-	Rating 				int 				`json:"rating" 		gorm:"not null"`
-	Country 			string				`json:"country" gorm:"not null"`
-	CreatedAt    		time.Time 			`json:"createdAt" 	gorm:"not null"`
-	UpdatedAt    		time.Time 			`json:"updatedAt" 	gorm:"not null"`
+	ID    				int     			`gorm:"primaryKey"`
+	Name  				string 				`json:"name"  		`
+	Contact  			int 				`json:"contact" 	`
+	Company				int 				`json:"company"		`
+	Rating 				int 				`json:"rating" 		`
+	Country 			string				`json:"country" `
+	CreatedAt    		time.Time 			`json:"createdAt" 	`
+	UpdatedAt    		time.Time 			`json:"updatedAt" 	`
 }
 
 type Application struct {
 	gorm.Model
-	ID    				int     			`json:"id,omitempty"`
-	User 				User 				`json:"userId" 		gorm:"foreignKey:UserId"`
-	Recruiter 			Recruiter 			`json:"recruiterId" gorm:"foreignKey:RecruiterId"`
-	Job					Job 				`json:"jobId 		gorm:"foreignKey:JobId"`
-	Status 				string 				`json:"rating" 		gorm:"not null"`
-	CreatedAt    		time.Time 			`json:"createdAt" 	gorm:"not null"`
-	UpdatedAt    		time.Time 			`json:"updatedAt" 	gorm:"not null"`
+	ID    				int     			`gorm:"primaryKey"`
+	UserId    			int					`json:"userId"`
+	User 				User 				`gorm:"foreignKey:UserId;references:ID"`
+	RecruiterId    		int					`json:"recruiterId"`
+	Recruiter 			Recruiter 			`gorm:"foreignKey:RecruiterId;references:ID"`
+	JobId	    		int					`json:"jobId"`
+	Job					Job 				`gorm:"foreignKey:JobId;references:ID"`
+	Status 				string 				`json:"status" 		`
+	CreatedAt    		time.Time 			`json:"createdAt" 	`
+	UpdatedAt    		time.Time 			`json:"updatedAt" 	`
 }

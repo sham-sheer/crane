@@ -12,12 +12,12 @@ COPY go.sum ./
 RUN go mod download
 
 # move the code now
-COPY *.go ./
+COPY . ./
 
 # we are basically outputting a binary docker-gs-ping with app logic
-RUN go build -o /docker-gs-ping
+RUN go build -o /crane
 
 EXPOSE 8080
 
 # Execute the binary
-CMD [ "/docker-gs-ping" ]
+CMD [ "/crane" ]

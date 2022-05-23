@@ -10,7 +10,7 @@ import (
 )
 
 func (s *Server) getUsers(c *gin.Context) {
-	var users []User
+	var users []model.User
 	if err := s.db.Find(&users).Error; err != nil {
 		c.String(http.StatusInternalServerError, fmt.Sprintf("error: %s", err))
 	}
@@ -18,7 +18,7 @@ func (s *Server) getUsers(c *gin.Context) {
 }
 
 func (s *Server) createUser(c *gin.Context) {
-	var user User
+	var user model.User
 	if err := BindJSON(c, &user); err != nil {
 		c.String(http.StatusBadRequest, fmt.Sprintf("error: %s", err))
 		return
@@ -33,7 +33,7 @@ func (s *Server) createUser(c *gin.Context) {
 
 func (s *Server) getUser(c *gin.Context) {
 	id := c.Param("userID")
-	var user User
+	var user model.User
 	if err := s.db.Find(&user, id).Error; err != nil {
 		c.String(http.StatusInternalServerError, fmt.Sprintf("error: %s", err))
 	} else {
@@ -42,7 +42,7 @@ func (s *Server) getUser(c *gin.Context) {
 }
 
 func (s *Server) updateUser(c *gin.Context) {
-	var user User
+	var user model.User
 	if err := BindJSON(c, &user); err != nil {
 		c.String(http.StatusBadRequest, fmt.Sprintf("error: %s", err))
 		return
@@ -57,7 +57,7 @@ func (s *Server) updateUser(c *gin.Context) {
 
 func (s *Server) deleteUser(c *gin.Context) {
 	userID := c.Param("userID")
-	req := s.db.Delete(User{}, "ID = ?", userID)
+	req := s.db.Delete(model.User{}, "ID = ?", userID)
 	if err := req.Error; err != nil {
 		c.String(http.StatusInternalServerError, fmt.Sprintf("error: %s", err))
 	} else if req.RowsAffected == 0 {

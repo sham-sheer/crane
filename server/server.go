@@ -52,6 +52,12 @@ func (s *Server) RegisterRouter(router *gin.Engine) {
 	router.PUT("/job/:jobID", s.updateJob)
 	router.DELETE("/job/:jobID", s.deleteJob)
 
+	router.GET("/recruiter", s.getRecruiters)
+	router.POST("/recruiter", s.createRecruiter)
+	router.GET("/recruiter/:recruiterId", s.getRecruiter)
+	router.PUT("/recruiter/:recruiterId", s.updateRecruiter)
+	router.DELETE("/recruiter/:recruiterId", s.deleteRecruiter)
+
 	router.GET("/application", s.getApplications)
 	router.POST("/application", s.createApplication)
 	router.GET("/application/:applicationID", s.getApplication)
