@@ -17,7 +17,7 @@ COPY . ./
 # we are basically outputting a binary docker-gs-ping with app logic
 RUN go build -o /crane
 
-EXPOSE 8080
+EXPOSE 9000
 
 # Execute the binary
 CMD [ "/crane" ]
